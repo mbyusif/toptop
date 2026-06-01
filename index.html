@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري التحميل... | TopTop Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #f59e0b; /* لون ذهبي */
+            --bg-dark: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
+            overflow: hidden;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .splash-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* حاوية الشعار مع تأثير أنيميشن احترافي */
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.2));
+            animation: logoEntrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes logoEntrance {
+            0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.2)); }
+            50% { filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.5)); }
+        }
+
+        /* النصوص وتأثيرات الكتابة */
+        .brand-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); }
+        }
+
+        /* حلقة التحميل الدائرية الفاخرة */
+        .loader-box {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards 0.8s;
+        }
+
+        .circle-loader {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            border-bottom-color: var(--primary);
+            animation: spin 1s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* حالة الاتصال والسيرفر السفلية */
+        .status-text {
+            font-size: 0.85rem;
+            color: #10b981; /* لون أخضر يدل على الأمان والاتصال */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards 1s;
+        }
+
+        .status-text i {
+            font-size: 0.7rem;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-container">
+        <!-- الشعار -->
+        <div class="logo-wrapper">
+            <img src="icon.png" alt="TopTop Logo" class="splash-logo">
+        </div>
+
+        <!-- النصوص -->
+        <h1 class="brand-name">Card TopTop</h1>
+        <p class="tagline">بوابتك الرسمية الآمنة لشحن الكوينزات</p>
+
+        <!-- حلقة التحميل -->
+        <div class="loader-box">
+            <div class="circle-loader"></div>
+        </div>
+
+        <!-- نص الحالة التفاعلي -->
+        <div class="status-text" id="statusLabel">
+            <i class="fa-solid fa-circle"></i> جاري الاتصال بخادم الشحن الآمن...
+        </div>
+    </div>
+
+    <script>
+        // مصفوفة لتغيير نصوص الحالة أثناء الانتظار لمظهر حقيقي واحترافي
+        const statusMessages = [
+            "جاري الاتصال بخادم الشحن الآمن...",
+            "جاري فحص بروتوكولات الأمان الحالية...",
+            "تم التحقق بنجاح! جاري توجيهك للمركز..."
+        ];
+
+        let msgIndex = 0;
+        const statusLabel = document.getElementById('statusLabel');
+
+        // تبديل الرسائل كل ثانية
+        const msgInterval = setInterval(() => {
+            msgIndex++;
+            if (msgIndex < statusMessages.length) {
+                if(msgIndex === 2) {
+                    statusLabel.style.color = "#10b981"; // تغيير اللون للأخضر النهائي
+                }
+                statusLabel.innerHTML = `<i class="fa-solid fa-circle"></i> ${statusMessages[msgIndex]}`;
+            }
+        }, 1100);
+
+        // التوجيه التلقائي مع تأثير الخروج الأنيق بعد 3.5 ثانية
+        setTimeout(() => {
+            clearInterval(msgInterval);
+            document.body.style.opacity = '0'; // تأثير التلاشي الفاخر قبل الانتقال
+            
+            setTimeout(() => {
+                window.location.href = "ht.html";
+            }, 600); // الانتظار حتى ينتهي أنيميشن التلاشي
+        }, 3500);
+    </script>
+</body>
+</html>

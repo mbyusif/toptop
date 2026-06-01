@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز شحن TopTop الرسمي | TopTop Recharge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #f59e0b; /* لون ذهبي */
+            --primary-hover: #d97706;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --crypto: #26a17b; /* لون مقارب لـ Tether USDT */
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* تعديل أيقونة رأس الصفحة لتصبح الصورة المحلية */
+        .header-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* جعل العناصر تظهر اثنين اثنين دائماً */
+            gap: 1.25rem; /* تقليل المسافة بين الصناديق لتتناسب مع التصغير */
+        }
+
+        /* تعديل على الشاشات الكبيرة لتظهر بشكل متناسق مع الحجم الجديد */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* إضافة أنيميشن دخول الصناديق بسلاسة فائقة عند فتح الصفحة */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem 1rem; /* تصغير الحشوة الداخلية للصناديق */
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardEntrance 0.8s cubic-bezier(0.21, 1.02, 0.43, 1.01) forwards;
+        }
+
+        @keyframes cardEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* تأخير بسيط لكل صندوق ليعطي مظهر دخول متتابع احترافي */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: linear-gradient(45deg, #ef4444, #f97316);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 0.8rem; /* تصغير حجم خط الشارة قليلاً */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(1.05); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+
+        /* تعديل تصميم حاوية أيقونات العملات لتناسب الصور المخصصة */
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+        }
+
+        .icon-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .base-coins {
+            font-size: 1rem; /* تصغير حجم الخط */
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-bottom: 0.5rem;
+        }
+
+        .final-coins {
+            font-size: 1.6rem; /* تصغير حجم خط العملة النهائي */
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+        }
+
+        .bonus-desc {
+            color: var(--success);
+            font-size: 0.85rem; /* تصغير خط المكافأة ليناسب الصناديق الصغيرة */
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 5px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .price-btn {
+            background: linear-gradient(45deg, var(--primary), #fbbf24);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 0.8rem; /* تصغير حجم أزرار الشراء */
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .price-btn:hover {
+            background: linear-gradient(45deg, var(--primary-hover), var(--primary));
+            transform: scale(1.02);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 450px;
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-next:hover {
+            background: var(--primary-hover);
+        }
+
+        .summary-box {
+            background: rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .payment-method {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover, .payment-method.selected {
+            background: rgba(38, 161, 123, 0.1);
+            border-color: var(--crypto);
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+        }
+
+        .crypto-icon { color: var(--crypto); }
+        .card-icon { color: #3b82f6; }
+
+        .payment-details {
+            margin-top: 1.5rem;
+            text-align: center;
+            padding: 1.25rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+        }
+
+        /* تنسيق قسم الباركود الجديد */
+        .barcode-box {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #fff;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .barcode-box img {
+            max-width: 140px;
+            height: auto;
+            display: block;
+        }
+
+        /* تصميم زر الشحن عبر الرابط مباشر الاحترافي */
+        .binance-btn {
+            background: linear-gradient(45deg, #f3ba2f, #f0a500);
+            color: #000;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 15px rgba(243, 186, 47, 0.2);
+        }
+        .binance-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(243, 186, 47, 0.4);
+        }
+
+        .wallet-address {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            margin: 10px 0;
+            color: var(--primary);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Progress Steps */
+        .stepper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 10px;
+        }
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* تصميم كاستم مودال التنبيهات الاحترافية الجديد بديل الـ alert التقليدي */
+        .custom-alert-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: 0.3s ease;
+        }
+        .custom-alert-overlay.active { opacity: 1; visibility: visible; }
+        .custom-alert-box {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 85%;
+            max-width: 380px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: 0.3s ease;
+        }
+        .custom-alert-overlay.active .custom-alert-box { transform: scale(1); }
+        .alert-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .alert-icon.success { color: var(--success); }
+        .alert-icon.error { color: var(--danger); }
+        .custom-alert-box h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: #fff; }
+        .custom-alert-box p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.5; }
+        .alert-close-btn {
+            background: #fff; color: #000; border: none; padding: 0.6rem 2rem;
+            border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="icon.png" alt="TopTop Logo" class="header-logo">
+        <h1>مركز شحن TopTop</h1>
+        <p>المنصة الأسرع والأكثر أماناً لشحن حسابك بأسعار حصرية ومكافآت كبرى</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            
+            <div class="card">
+                <div class="badge">5% خصم</div>
+                <div class="icon-container">
+                    <img src="u50.png" alt="Coins 50$">
+                </div>
+                <div class="base-coins">800,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +40,000 مجاناً</div>
+                <div class="final-coins">840,000</div>
+                <button class="price-btn" onclick="openModal('840,000', '50')">
+                    <i class="fa-solid fa-cart-shopping"></i> 50$
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="badge">10% خصم</div>
+                <div class="icon-container">
+                    <img src="u100.png" alt="Coins 100$">
+                </div>
+                <div class="base-coins">1,600,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +160,000 مجاناً</div>
+                <div class="final-coins">1,760,000</div>
+                <button class="price-btn" onclick="openModal('1,760,000', '100')">
+                    <i class="fa-solid fa-cart-shopping"></i> 100$
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="badge">15% خصم</div>
+                <div class="icon-container">
+                    <img src="u200.png" alt="Coins 200$">
+                </div>
+                <div class="base-coins">3,200,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +480,000 مجاناً</div>
+                <div class="final-coins">3,680,000</div>
+                <button class="price-btn" onclick="openModal('3,680,000', '200')">
+                    <i class="fa-solid fa-cart-shopping"></i> 200$
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="badge">25% خصم</div>
+                <div class="icon-container">
+                    <img src="u350.png" alt="Coins 350$">
+                </div>
+                <div class="base-coins">4,000,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +1,000,000 مجاناً</div>
+                <div class="final-coins">5,000,000</div>
+                <button class="price-btn" onclick="openModal('5,000,000', '350')">
+                    <i class="fa-solid fa-cart-shopping"></i> 350$
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal-content">
+            <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
+            
+            <div class="stepper">
+                <div class="step-dot active" id="dot1"></div>
+                <div class="step-dot" id="dot2"></div>
+                <div class="step-dot" id="dot3"></div>
+            </div>
+
+            <div class="step active" id="step1">
+                <h2 class="modal-title"><i class="fa-solid fa-id-card"></i> التحقق من الحساب</h2>
+                <div class="input-group">
+                    <label for="toptopId">الرجاء إدخال ID حسابك في TopTop :</label>
+                    <input type="text" id="toptopId" placeholder="" autocomplete="off">
+                </div>
+                <button class="btn-next" onclick="goToStep(2)">التالي <i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+
+            <div class="step" id="step2">
+                <h2 class="modal-title"><i class="fa-solid fa-clipboard-check"></i> تأكيد الطلب</h2>
+                <div class="summary-box">
+                    <div class="summary-item">
+                        <span>معرف الحساب (ID):</span>
+                        <span id="displayId" style="color: white; font-weight: bold;">---</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>الكوينزات المستلمة:</span>
+                        <span id="displayCoins" style="color: var(--primary); font-weight: bold;">---</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>الإجمالي المطلوب:</span>
+                        <span id="displayPrice">---</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-next" style="background: rgba(255,255,255,0.1); color: white;" onclick="goToStep(1)">رجوع</button>
+                    <button class="btn-next" onclick="goToStep(3)">تأكيد ومتابعة الدفع</button>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
+                <h2 class="modal-title"><i class="fa-solid fa-wallet"></i> اختيار طريقة الدفع</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1rem;">نوصي بالدفع عبر العملات الرقمية للسرعة والموثوقية العالمية</p>
+                
+                <div class="payment-methods">
+                    <div class="payment-method selected">
+                        <i class="fa-brands fa-bitcoin crypto-icon"></i>
+                        <div>
+                            <h3 style="color: white; font-size: 1.1rem;">USDT (Tether)</h3>
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">شبكة TRC20 - سريع ومجاني</span>
+                        </div>
+                        <i class="fa-solid fa-circle-check" style="margin-right: auto; color: var(--crypto);"></i>
+                    </div>
+                </div>
+
+                <div class="payment-details">
+                    <p style="color: white; font-size: 0.9rem; margin-bottom: 5px;">امسح باركود الدفع السريع المباشر لـ <b id="finalCryptoPrice" style="color: var(--primary);">0</b> USDT:</p>
+                    
+                    <div class="barcode-box">
+                        <img id="categoryBarcode" src="p50.png" alt="Barcode">
+                    </div>
+                    <div>
+                        <a id="categoryBinanceLink" href="#" target="_blank" class="binance-btn">
+                            <i class="fa-solid fa-bolt"></i> شحن سريع عبر رابط Binance مباشر
+                        </a>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.1); margin: 1rem 0;">
+
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">قم بنسخ العنوان لتحويل يدوي إذا لزم الأمر:</p>
+                    <div class="wallet-address" id="walletAddress">TAFBoSXaVwxxRQXvtBg1MgdDWdQhPRZd9F</div>
+                    <button class="copy-btn" onclick="copyWallet('walletAddress', this)"><i class="fa-regular fa-copy"></i> نسخ عنوان المحفظة</button>
+                </div>
+
+                <button class="btn-next" style="margin-top: 1.5rem; background: var(--success); color: white;" onclick="finishOrder()">
+                    <i class="fa-solid fa-check-double"></i> لقد قمت بالدفع
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="custom-alert-overlay" id="customAlert">
+        <div class="custom-alert-box">
+            <div id="alertIcon" class="alert-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 id="alertTitle">تنبيه</h3>
+            <p id="alertMessage">الرسالة هنا...</p>
+            <button class="alert-close-btn" onclick="closeCustomAlert()">موافق</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPrice = '';
+        let currentCoins = '';
+        let selectedRawPrice = '50'; // لتحديد الفئة الرقمية الحالية 50, 100, 200, 350
+
+        // بيانات الباركود والروابط الخاصة بكل فئة
+        const categoryData = {
+            '50': { barcode: 'p50.png', link: 'https://s.binance.com/xdcmwLCs' },
+            '100': { barcode: 'p100.png', link: 'https://s.binance.com/zKUzHuZ2' },
+            '200': { barcode: 'p200.png', link: 'https://s.binance.com/fLMYKg07' },
+            '350': { barcode: 'p350.png', link: 'https://s.binance.com/HI8C3vO5' }
+        };
+
+        // دالة إظهار التنبيهات الاحترافية المخصصة
+        function showCustomAlert(title, message, type) {
+            const alertOverlay = document.getElementById('customAlert');
+            const iconEl = document.getElementById('alertIcon');
+            
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMessage').innerText = message;
+            
+            if (type === 'success') {
+                iconEl.className = 'alert-icon success';
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            } else {
+                iconEl.className = 'alert-icon error';
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+            }
+            alertOverlay.classList.add('active');
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlert').classList.remove('active');
+        }
+
+        // فتح النافذة المنبثقة الأساسية
+        function openModal(coins, price) {
+            currentCoins = coins;
+            selectedRawPrice = price; // تخزين القيمة بدون دولار
+            currentPrice = price + '$';
+            document.getElementById('purchaseModal').classList.add('active');
+            goToStep(1); 
+        }
+
+        // إغلاق النافذة
+        function closeModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+            document.getElementById('toptopId').value = '';
+        }
+
+        // التنقل التفاعلي الذكي بين الخطوات
+        function goToStep(stepNum) {
+            if (stepNum === 2) {
+                const idValue = document.getElementById('toptopId').value.trim();
+                
+                // 1. شروط الـ ID الحازمة والآمنة
+                if (idValue.length < 8 || idValue.length > 9) {
+                    showCustomAlert('خطأ في التحقق', 'يجب أن يتكون معرف الحساب (ID) من 8 أو 9 أرقام فقط.', 'error');
+                    return;
+                }
+                
+                if (idValue.startsWith('0')) {
+                    showCustomAlert('خطأ في التحقق', 'لا يمكن أن يبدأ معرف الحساب (ID) بالرقم صفر.', 'error');
+                    return;
+                }
+
+                if (!/^\d+$/.test(idValue)) {
+                    showCustomAlert('خطأ في التحقق', 'يجب أن يحتوي معرف الحساب على أرقام فقط بدون حروف.', 'error');
+                    return;
+                }
+
+                // تحديث بيانات التقرير والملخص
+                document.getElementById('displayId').innerText = idValue;
+                document.getElementById('displayCoins').innerText = currentCoins;
+                document.getElementById('displayPrice').innerText = currentPrice;
+            }
+
+            if(stepNum === 3) {
+                document.getElementById('finalCryptoPrice').innerText = selectedRawPrice;
+                
+                // تحديث الباركود والزر بشكل تفاعلي تام طبقاً لبيانات الفئة المحددة
+                const data = categoryData[selectedRawPrice];
+                if (data) {
+                    document.getElementById('categoryBarcode').src = data.barcode;
+                    document.getElementById('categoryBinanceLink').href = data.link;
+                }
+            }
+
+            // تفعيل التبديل الأنيق بين التبويبات
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                if(index < stepNum) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+
+            document.getElementById('step' + stepNum).classList.add('active');
+        }
+
+        // دالة نسخ العناوين - تم إصلاحها بالكامل لتعمل على الهواتف والمتصفحات المحلية
+        function copyWallet(elementId, btnElement) {
+            const walletText = document.getElementById(elementId).innerText;
+            
+            // دالة المساعدة المباشرة للنسخ لضمان التوافق المطلق
+            function executeCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';  // تجنب التمرير في الصفحة
+                document.body.appendChild(textarea);
+                textarea.select();
+                textarea.setSelectionRange(0, 99999); // للهواتف
+                try {
+                    document.execCommand('copy');
+                    return true;
+                } catch (err) {
+                    return false;
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+
+            // محاولة النسخ بالطريقة الحديثة، وإذا فشلت يتم استخدام الطريقة المباشرة المضمونة
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(walletText).then(() => {
+                    handleSuccess();
+                }).catch(() => {
+                    if(executeCopy(walletText)) handleSuccess();
+                });
+            } else {
+                if(executeCopy(walletText)) handleSuccess();
+            }
+
+            function handleSuccess() {
+                const originalText = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ بنجاح!';
+                btnElement.style.background = 'var(--success)';
+                btnElement.style.color = '#fff';
+                btnElement.style.borderColor = 'var(--success)';
+                setTimeout(() => {
+                    btnElement.innerHTML = originalText;
+                    btnElement.style.background = 'transparent';
+                    btnElement.style.color = 'var(--primary)';
+                    btnElement.style.borderColor = 'var(--primary)';
+                }, 2000);
+            }
+        }
+
+        // إنهاء وإتمام الطلبات بشكل فاخر
+        function finishOrder() {
+            showCustomAlert('تم إرسال الطلب', 'تم استلام بيانات طلبك بنجاح! سيتم فحص عملية الإيداع عبر الشبكة آلياً وشحن الكوينزات إلى حسابك فور تأكيد المعاملة.', 'success');
+            closeModal();
+        }
+    </script>
+</body>
+</html>
