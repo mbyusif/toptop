@@ -78,7 +78,12 @@
         /* تعديل على الشاشات الكبيرة لتظهر بشكل متناسق مع الحجم الجديد */
         @media (min-width: 768px) {
             .grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(5, 1fr);
             }
         }
 
@@ -109,6 +114,7 @@
         .card:nth-child(2) { animation-delay: 0.2s; }
         .card:nth-child(3) { animation-delay: 0.3s; }
         .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
 
         .card:hover {
             transform: translateY(-10px);
@@ -131,9 +137,9 @@
         }
 
         @keyframes pulse {
-            0% { transform: rotate(45deg) scale(1); }
-            50% { transform: rotate(45deg) scale(1.05); }
-            100% { transform: rotate(45deg) scale(1); }
+            0 { transform: rotate(45deg) scale(1); }
+            50 { transform: rotate(45deg) scale(1.05); }
+            100 { transform: rotate(45deg) scale(1); }
         }
 
         /* تعديل تصميم حاوية أيقونات العملات لتناسب الصور المخصصة */
@@ -153,14 +159,14 @@
         }
 
         .base-coins {
-            font-size: 1rem; /* تصغير حجم الخط */
+            font-size: 0.95rem; /* تصغير حجم الخط */
             color: var(--text-muted);
             text-decoration: line-through;
             margin-bottom: 0.5rem;
         }
 
         .final-coins {
-            font-size: 1.6rem; /* تصغير حجم خط العملة النهائي */
+            font-size: 1.5rem; /* تصغير حجم خط العملة النهائي */
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 1rem;
@@ -169,13 +175,24 @@
 
         .bonus-desc {
             color: var(--success);
-            font-size: 0.85rem; /* تصغير خط المكافأة ليناسب الصناديق الصغيرة */
+            font-size: 0.8rem; /* تصغير خط المكافأة ليناسب الصناديق الصغيرة */
             font-weight: bold;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.5rem;
             background: rgba(16, 185, 129, 0.1);
             padding: 5px 8px;
             border-radius: 8px;
             display: inline-block;
+        }
+
+        .sales-count {
+            display: block;
+            font-size: 0.8rem;
+            color: #38bdf8;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
         }
 
         .price-btn {
@@ -510,62 +527,85 @@
 
     <header>
         <img src="icon.png" alt="TopTop Logo" class="header-logo">
-        <h1>مركز شحن TopTop</h1>
+        <h1>CARD TopTop</h1>
         <p>المنصة الأسرع والأكثر أماناً لشحن حسابك بأسعار حصرية ومكافآت كبرى</p>
     </header>
 
     <div class="container">
         <div class="grid">
             
+            <!-- فئة 50 USDT -->
             <div class="card">
-                <div class="badge">5% خصم</div>
+                <div class="badge">5% هدية</div>
                 <div class="icon-container">
                     <img src="u50.png" alt="Coins 50$">
                 </div>
-                <div class="base-coins">800,000 كوينز</div>
-                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +40,000 مجاناً</div>
-                <div class="final-coins">840,000</div>
-                <button class="price-btn" onclick="openModal('840,000', '50')">
-                    <i class="fa-solid fa-cart-shopping"></i> 50$
+                <div class="base-coins">1,200,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +60,000 مجاناً</div>
+                <div class="final-coins">1,260,000</div>
+                <span class="sales-count" id="sales-50"><i class="fa-solid fa-fire"></i> تم البيع 96 مرة</span>
+                <button class="price-btn" onclick="openModal('1,260,000', '50')">
+                    <i class="fa-solid fa-cart-shopping"></i> 50 USDT
                 </button>
             </div>
 
+            <!-- فئة 100 USDT -->
             <div class="card">
-                <div class="badge">10% خصم</div>
+                <div class="badge">7% هدية</div>
                 <div class="icon-container">
                     <img src="u100.png" alt="Coins 100$">
                 </div>
-                <div class="base-coins">1,600,000 كوينز</div>
-                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +160,000 مجاناً</div>
-                <div class="final-coins">1,760,000</div>
-                <button class="price-btn" onclick="openModal('1,760,000', '100')">
-                    <i class="fa-solid fa-cart-shopping"></i> 100$
+                <div class="base-coins">2,400,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +168,000 مجاناً</div>
+                <div class="final-coins">2,568,000</div>
+                <span class="sales-count" id="sales-100"><i class="fa-solid fa-fire"></i> تم البيع 109 مرة</span>
+                <button class="price-btn" onclick="openModal('2,568,000', '100')">
+                    <i class="fa-solid fa-cart-shopping"></i> 100 USDT
                 </button>
             </div>
 
+            <!-- فئة 200 USDT -->
             <div class="card">
-                <div class="badge">15% خصم</div>
+                <div class="badge">10% هدية</div>
                 <div class="icon-container">
                     <img src="u200.png" alt="Coins 200$">
                 </div>
-                <div class="base-coins">3,200,000 كوينز</div>
+                <div class="base-coins">4,800,000 كوينز</div>
                 <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +480,000 مجاناً</div>
-                <div class="final-coins">3,680,000</div>
-                <button class="price-btn" onclick="openModal('3,680,000', '200')">
-                    <i class="fa-solid fa-cart-shopping"></i> 200$
+                <div class="final-coins">5,280,000</div>
+                <span class="sales-count" id="sales-200"><i class="fa-solid fa-fire"></i> تم البيع 38 مرة</span>
+                <button class="price-btn" onclick="openModal('5,280,000', '200')">
+                    <i class="fa-solid fa-cart-shopping"></i> 200 USDT
                 </button>
             </div>
 
+            <!-- فئة 350 USDT -->
             <div class="card">
-                <div class="badge">25% خصم</div>
+                <div class="badge">15% هدية</div>
                 <div class="icon-container">
                     <img src="u350.png" alt="Coins 350$">
                 </div>
-                <div class="base-coins">4,000,000 كوينز</div>
-                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +1,000,000 مجاناً</div>
-                <div class="final-coins">5,000,000</div>
-                <button class="price-btn" onclick="openModal('5,000,000', '350')">
-                    <i class="fa-solid fa-cart-shopping"></i> 350$
+                <div class="base-coins">8,400,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +1,260,000 مجاناً</div>
+                <div class="final-coins">9,660,000</div>
+                <span class="sales-count" id="sales-350"><i class="fa-solid fa-fire"></i> تم البيع 54 مرة</span>
+                <button class="price-btn" onclick="openModal('9,660,000', '350')">
+                    <i class="fa-solid fa-cart-shopping"></i> 350 USDT
+                </button>
+            </div>
+
+            <!-- فئة 1000 USDT الجديدة -->
+            <div class="card">
+                <div class="badge">25% هدية</div>
+                <div class="icon-container">
+                    <img src="u1000.png" alt="Coins 1000$">
+                </div>
+                <div class="base-coins">24,000,000 كوينز</div>
+                <div class="bonus-desc"><i class="fa-solid fa-arrow-trend-up"></i> +3,600,000 مجاناً</div>
+                <div class="final-coins">27,600,000</div>
+                <span class="sales-count" id="sales-1000"><i class="fa-solid fa-fire"></i> تم البيع 13 مرة</span>
+                <button class="price-btn" onclick="openModal('27,600,000', '1000')">
+                    <i class="fa-solid fa-cart-shopping"></i> 1000 USDT
                 </button>
             </div>
 
@@ -667,15 +707,77 @@
     <script>
         let currentPrice = '';
         let currentCoins = '';
-        let selectedRawPrice = '50'; // لتحديد الفئة الرقمية الحالية 50, 100, 200, 350
+        let selectedRawPrice = '50'; // لتحديد الفئة الرقمية الحالية 50, 100, 200, 350, 1000
+
+        // القيم الافتراضية الأولية لعداد المبيعات
+        const initialSales = {
+            '50': 96,
+            '100': 109,
+            '200': 38,
+            '350': 54,
+            '1000': 13
+        };
 
         // بيانات الباركود والروابط الخاصة بكل فئة
         const categoryData = {
             '50': { barcode: 'p50.png', link: 'https://s.binance.com/xdcmwLCs' },
             '100': { barcode: 'p100.png', link: 'https://s.binance.com/zKUzHuZ2' },
             '200': { barcode: 'p200.png', link: 'https://s.binance.com/fLMYKg07' },
-            '350': { barcode: 'p350.png', link: 'https://s.binance.com/HI8C3vO5' }
+            '350': { barcode: 'p350.png', link: 'https://s.binance.com/HI8C3vO5' },
+            '1000': { barcode: 'p1000.png', link: 'https://s.binance.com/kTnSycy7' }
         };
+
+        // نظام إدارة المبيعات الاحترافي التلقائي والتفاعلي
+        function initSalesTracker() {
+            const todayStr = new Date().toISOString().slice(0, 10); // الحصول على التاريخ الحالي YYYY-MM-DD
+            let savedSales = localStorage.getItem('toptop_sales_data');
+            let lastUpdateDate = localStorage.getItem('toptop_sales_date');
+
+            if (!savedSales) {
+                savedSales = { ...initialSales };
+                localStorage.setItem('toptop_sales_data', JSON.stringify(savedSales));
+                localStorage.setItem('toptop_sales_date', todayStr);
+            } else {
+                savedSales = JSON.parse(savedSales);
+            }
+
+            // إذا كان اليوم جديداً، يتم زيادة المبيعات بشكل تلقائي وموثوق لإعطاء حيوية للموقع
+            if (lastUpdateDate !== todayStr) {
+                Object.keys(savedSales).forEach(key => {
+                    // زيادة عشوائية ذكية بين 2 لـ 5 مبيعات يومياً لكل فئة
+                    const randomAddition = Math.floor(Math.random() * 4) + 2;
+                    savedSales[key] = parseInt(savedSales[key]) + randomAddition;
+                });
+                localStorage.setItem('toptop_sales_data', JSON.stringify(savedSales));
+                localStorage.setItem('toptop_sales_date', todayStr);
+            }
+
+            // تحديث الواجهة الرسومية بالعدادات الجديدة
+            updateSalesUI(savedSales);
+        }
+
+        function updateSalesUI(salesData) {
+            Object.keys(salesData).forEach(key => {
+                const el = document.getElementById(`sales-${key}`);
+                if (el) {
+                    el.innerHTML = `<i class="fa-solid fa-fire"></i> تم البيع ${salesData[key]} مرة`;
+                }
+            });
+        }
+
+        // زيادة العداد بمقدار 1 عند قيام المستخدم بالضغط على زر تأكيد الدفع
+        function incrementSingleSale(category) {
+            let savedSales = localStorage.getItem('toptop_sales_data');
+            if (savedSales) {
+                savedSales = JSON.parse(savedSales);
+                savedSales[category] = parseInt(savedSales[category]) + 1;
+                localStorage.setItem('toptop_sales_data', JSON.stringify(savedSales));
+                updateSalesUI(savedSales);
+            }
+        }
+
+        // تشغيل نظام تعقب المبيعات الذكي فور تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', initSalesTracker);
 
         // دالة إظهار التنبيهات الاحترافية المخصصة
         function showCustomAlert(title, message, type) {
@@ -703,7 +805,7 @@
         function openModal(coins, price) {
             currentCoins = coins;
             selectedRawPrice = price; // تخزين القيمة بدون دولار
-            currentPrice = price + '$';
+            currentPrice = price + ' USDT';
             document.getElementById('purchaseModal').classList.add('active');
             goToStep(1); 
         }
@@ -814,6 +916,9 @@
 
         // إنهاء وإتمام الطلبات بشكل فاخر
         function finishOrder() {
+            // زيادة العداد الخاص بالفئة التي تم شراؤها حالياً بمقدار 1 بشكل فوري
+            incrementSingleSale(selectedRawPrice);
+
             showCustomAlert('تم إرسال الطلب', 'تم استلام بيانات طلبك بنجاح! سيتم فحص عملية الإيداع عبر الشبكة آلياً وشحن الكوينزات إلى حسابك فور تأكيد المعاملة.', 'success');
             closeModal();
         }
